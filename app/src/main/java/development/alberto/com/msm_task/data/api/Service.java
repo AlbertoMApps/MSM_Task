@@ -1,7 +1,5 @@
 package development.alberto.com.msm_task.data.api;
 
-import android.database.Observable;
-
 import development.alberto.com.msm_task.data.api.Constant.Constant;
 import development.alberto.com.msm_task.data.api.Models.People;
 import retrofit2.http.GET;
@@ -13,6 +11,6 @@ import retrofit2.http.GET;
 public class Service {
     public interface IContactsAPI {
         @GET(Constant.GET_CONTACTS_URL)
-        Observable<People> getContacts();
+        rx.Observable<People> getContacts();
     }
 }
