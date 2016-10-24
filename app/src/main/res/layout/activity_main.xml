@@ -9,7 +9,8 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_logo"/>
 
-    <com.mastercard.labs.qkr.widget.CustomViewPager android:id="@+id/pager"
+    <development.alberto.com.msm_task.app.widget.CustomViewPager
+        android:id="@+id/pager"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

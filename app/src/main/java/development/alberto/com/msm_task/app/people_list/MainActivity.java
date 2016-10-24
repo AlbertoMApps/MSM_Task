@@ -40,12 +40,6 @@ public class MainActivity extends AppCompatActivity implements ActionCommands {
         return new Intent(context, MainActivity.class);
     }
 
-//    public static Intent getCallingIntent(Context context, String username) {
-//        Intent intent = new Intent(context, MainActivity.class);
-//        intent.putExtra(Constants.ARG_USERNAME, username);
-//        return intent;
-//    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
