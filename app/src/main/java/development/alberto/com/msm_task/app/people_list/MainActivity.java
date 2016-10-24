@@ -3,21 +3,17 @@ package development.alberto.com.msm_task.app.people_list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnPageChange;
 import butterknife.Unbinder;
 import development.alberto.com.msm_task.R;
-import development.alberto.com.msm_task.app.adapter.ScreenSlidePagerAdapter;
+import development.alberto.com.msm_task.app.adapter.ScreenSliderPagerAdapter;
 import development.alberto.com.msm_task.app.people_list.screen1.Screen1Fragment;
 import development.alberto.com.msm_task.app.people_list.screen2.Screen2Fragment;
 import development.alberto.com.msm_task.app.widget.CustomViewPager;
@@ -36,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements ActionCommands {
 
     private int currentFragmentPosition;
 
-    private ScreenSlidePagerAdapter mPagerAdapter;
+    private ScreenSliderPagerAdapter mPagerAdapter;
 
     private Unbinder unbinder;
 
@@ -62,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements ActionCommands {
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), firstScreenFragment, secondScreenFragment);
+        mPagerAdapter = new ScreenSliderPagerAdapter(getSupportFragmentManager(), firstScreenFragment, secondScreenFragment);
         mPager.setSwipePageEnabled(false);
         mPager.setAdapter(mPagerAdapter);
         currentFragmentPosition = 0;
