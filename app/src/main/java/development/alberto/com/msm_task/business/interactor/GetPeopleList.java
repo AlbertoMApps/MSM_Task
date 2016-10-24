@@ -3,7 +3,6 @@ package development.alberto.com.msm_task.business.interactor;
 import development.alberto.com.msm_task.business.executor.PostExecutionThread;
 import development.alberto.com.msm_task.business.executor.ThreadExecutor;
 import development.alberto.com.msm_task.business.repository.PeopleRepository;
-import development.alberto.com.msm_task.data.api.PeopleDataRepository;
 import rx.Observable;
 
 /**
