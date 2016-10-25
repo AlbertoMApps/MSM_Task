@@ -1,5 +1,7 @@
 package development.alberto.com.msm_task.data.api;
 
+import javax.inject.Inject;
+
 import development.alberto.com.msm_task.business.repository.PeopleRepository;
 import development.alberto.com.msm_task.data.api.Models.People;
 import rx.Observable;
@@ -9,6 +11,9 @@ import rx.Observable;
  */
 
 public class PeopleDataRepository implements PeopleRepository {
+
+    @Inject
+    PeopleDataRepository(){}
 
     @Override
     public Observable<People> getPeople() {

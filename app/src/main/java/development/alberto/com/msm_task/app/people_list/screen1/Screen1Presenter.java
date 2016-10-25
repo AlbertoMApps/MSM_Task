@@ -1,9 +1,10 @@
 package development.alberto.com.msm_task.app.people_list.screen1;
 
+import java.util.ArrayList;
+
 import development.alberto.com.msm_task.app.util.Presenter;
 import development.alberto.com.msm_task.business.interactor.DefaultSubscriber;
 import development.alberto.com.msm_task.business.interactor.GetPeopleList;
-import development.alberto.com.msm_task.business.interactor.UseCase;
 
 /**
  * Created by alber on 24/10/2016.
@@ -17,6 +18,7 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
     public Screen1Presenter( Screen1Contract.View view ) {
         if (view == null) throw new NullPointerException();
         mView = view;
+//        getPeopleList = new GetPeopleList()
     }
 
     @Override
@@ -44,5 +46,9 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
     @Override
     protected void onDestroy() {
         getPeopleList.unsubscribe();
+    }
+
+    public ArrayList<String> getPeople() {
+        return null;
     }
 }

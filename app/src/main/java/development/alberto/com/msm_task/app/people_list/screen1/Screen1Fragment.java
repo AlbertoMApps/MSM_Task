@@ -3,13 +3,20 @@ package development.alberto.com.msm_task.app.people_list.screen1;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import development.alberto.com.msm_task.R;
+import development.alberto.com.msm_task.app.adapter.PeopleAdapter;
 import development.alberto.com.msm_task.app.people_list.ActionCommands;
 import development.alberto.com.msm_task.app.people_list.MainActivity;
 
@@ -29,6 +36,13 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View {
 
     private Unbinder unbinder;
 
+    @BindView(R.id.list)
+    RecyclerView mRecyclerView;
+
+    private PeopleAdapter mAdapter;
+
+    private ArrayList <String> pData;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
@@ -37,9 +51,19 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View {
         unbinder = ButterKnife.bind(this, view);
         presenter = new Screen1Presenter(this);
         presenter.onCreate();
+        initRecyclerView();
         return view;
     }
 
+    public void initRecyclerView(){
+
+        pData = presenter.getPeople();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        mAdapter = new PeopleAdapter(pData, R.layout.row_person, getContext());
+        mRecyclerView.setAdapter(mAdapter);
+    }
 
 
     public void onResumeFragment() {
