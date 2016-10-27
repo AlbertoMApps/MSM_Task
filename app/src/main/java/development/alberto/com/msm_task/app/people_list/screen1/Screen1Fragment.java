@@ -12,13 +12,18 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import development.alberto.com.msm_task.R;
+import development.alberto.com.msm_task.app.MSMApp;
 import development.alberto.com.msm_task.app.adapter.PeopleAdapter;
 import development.alberto.com.msm_task.app.people_list.ActionCommands;
 import development.alberto.com.msm_task.app.people_list.MainActivity;
+import development.alberto.com.msm_task.business.interactor.UseCase;
+import development.alberto.com.msm_task.data.api.Models.Person;
 
 /**
  * Created by alber on 24/10/2016.
@@ -41,17 +46,25 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View {
 
     private PeopleAdapter mAdapter;
 
-    private ArrayList <String> pData;
+    private ArrayList <Person> pData;
 
-    @Nullable
+    @Inject
+    UseCase getPeopleList;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((MSMApp)getActivity().getApplicationContext()).getApplicationComponent().inject(this);
+        getPeopleList =  ((MSMApp) getActivity().getApplicationContext()).getApplicationComponent().getUserListUseCase();
+        presenter = new Screen1Presenter(this, getPeopleList);
+        presenter.onCreate();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.screen1_fragment, container, false);
         unbinder = ButterKnife.bind(this, view);
-        presenter = new Screen1Presenter(this);
-        presenter.onCreate();
-        initRecyclerView();
         return view;
     }
 

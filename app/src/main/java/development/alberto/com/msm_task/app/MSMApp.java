@@ -1,10 +1,13 @@
 package development.alberto.com.msm_task.app;
 
+
+
 import android.app.Application;
 
 import development.alberto.com.msm_task.app.di.components.AppComponent;
 import development.alberto.com.msm_task.app.di.components.DaggerAppComponent;
 import development.alberto.com.msm_task.app.di.modules.AppModule;
+import development.alberto.com.msm_task.app.di.modules.PeopleModule;
 
 /**
  * Created by alber on 24/10/2016.
@@ -21,6 +24,7 @@ public class MSMApp extends Application {
     private void initializeInjector() {
         this.applicationComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
+                .peopleModule(new PeopleModule())
                 .build();
     }
 

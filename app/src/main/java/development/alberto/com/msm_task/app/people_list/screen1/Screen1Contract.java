@@ -17,6 +17,8 @@ public interface Screen1Contract  {
         void showProgress();
 
         void dismissProgress();
+
+        void initRecyclerView();
         }
 
     interface UserActionsListener {

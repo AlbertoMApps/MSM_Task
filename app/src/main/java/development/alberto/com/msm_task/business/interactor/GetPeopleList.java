@@ -1,5 +1,7 @@
 package development.alberto.com.msm_task.business.interactor;
 
+import javax.inject.Inject;
+
 import development.alberto.com.msm_task.business.executor.PostExecutionThread;
 import development.alberto.com.msm_task.business.executor.ThreadExecutor;
 import development.alberto.com.msm_task.business.repository.PeopleRepository;
@@ -15,6 +17,7 @@ public class GetPeopleList extends UseCase{
     private ThreadExecutor threadExecutor;
     private PostExecutionThread postExecutionThread;
 
+    @Inject
     public GetPeopleList(PeopleRepository peopleRepository, ThreadExecutor threadExecutor,
                        PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
