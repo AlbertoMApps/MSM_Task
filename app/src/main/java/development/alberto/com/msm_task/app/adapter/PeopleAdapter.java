@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import development.alberto.com.msm_task.R;
+import development.alberto.com.msm_task.app.people_list.screen1.Screen1Fragment;
 import development.alberto.com.msm_task.data.api.Models.Person;
 
 /**
@@ -26,12 +27,22 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
     private Context context;
     private int mLayout;
-    ArrayList<Person> mData;
+    private ArrayList<Person> mData;
+    private int listPosition;
+    private Screen1Fragment sc1Fragment;
 
     public PeopleAdapter(ArrayList<Person> pData, int row_person, Context context) {
         this.context = context;
         this.mLayout = row_person;
         this.mData = pData;
+    }
+
+    public PeopleAdapter(ArrayList<Person> pData, int row_person, Context context, Screen1Fragment screen1Fragment) {
+        this.context = context;
+        this.mLayout = row_person;
+        this.mData = pData;
+        this.sc1Fragment = screen1Fragment;
+
     }
 
     @Override
@@ -41,12 +52,13 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final Person dataPersonAPI = mData.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Data saved for : " + dataPersonAPI.getFirstName().toString() , Toast.LENGTH_SHORT).show();
+               listPosition = holder.getAdapterPosition();
+                sc1Fragment.stepForward(listPosition);
             }
         });
         Picasso.with(context)

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/personImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:scaleType="fitStart"
+        android:layout_margin="5dp"
+        />
+
+    <TextView
+        android:id="@+id/personName"
+        android:background="?android:selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:layout_marginTop="20dp"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:textAlignment="center"
+        android:layout_alignRight="@+id/personImage"
+        />
+
+    <TextView
+        android:id="@+id/personLastName"
+        android:background="?android:selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:textAlignment="center"
+        android:layout_below="@+id/personName"
+        android:layout_alignRight="@+id/personImage"
+        android:layout_margin="5dp"
+        />
+    <TextView
+        android:id="@+id/role"
+        android:background="?android:selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:textAlignment="center"
+        android:layout_below="@+id/personLastName"
+        android:layout_alignRight="@+id/personImage"
+        android:layout_margin="5dp"
+        />
+    <TextView
+        android:id="@+id/dob"
+        android:background="?android:selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:textAlignment="center"
+        android:layout_below="@+id/role"
+        android:layout_alignRight="@+id/personImage"
+        android:layout_margin="5dp"
+        />
+
+</RelativeLayout>

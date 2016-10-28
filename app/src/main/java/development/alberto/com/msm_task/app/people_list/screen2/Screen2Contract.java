@@ -5,4 +5,17 @@ package development.alberto.com.msm_task.app.people_list.screen2;
  */
 
 public interface Screen2Contract {
+    interface View {
+
+        void setActionsListener(UserActionsListener actionsListener);
+
+        void showErrorSnackBar(String errorMessage);
+
+    }
+
+    interface UserActionsListener {
+
+        void stepForward(boolean lastStep);
+
+    }
 }

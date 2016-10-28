@@ -26,7 +26,7 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
     }
 
     @Override
-    public void stepForward(boolean lastStep) {
+    public void stepForward(boolean lastStep ) {
         if (!lastStep) {
             mView.showNextPage();
         }
@@ -64,6 +64,7 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
 
         @Override
         public void onError(Throwable e) {
+            mView.showErrorSnackBar("");
         }
 
         @Override

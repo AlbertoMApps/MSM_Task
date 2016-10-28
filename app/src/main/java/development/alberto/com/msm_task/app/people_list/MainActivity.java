@@ -1,7 +1,5 @@
 package development.alberto.com.msm_task.app.people_list;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +15,7 @@ import development.alberto.com.msm_task.app.adapter.ScreenSliderPagerAdapter;
 import development.alberto.com.msm_task.app.people_list.screen1.Screen1Fragment;
 import development.alberto.com.msm_task.app.people_list.screen2.Screen2Fragment;
 import development.alberto.com.msm_task.app.widget.CustomViewPager;
+import development.alberto.com.msm_task.data.api.Models.Person;
 
 public class MainActivity extends AppCompatActivity implements ActionCommands {
 
@@ -35,10 +34,6 @@ public class MainActivity extends AppCompatActivity implements ActionCommands {
     private ScreenSliderPagerAdapter mPagerAdapter;
 
     private Unbinder unbinder;
-
-    public static Intent getCallingIntent(Context context) {
-        return new Intent(context, MainActivity.class);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements ActionCommands {
                     if (mPager.getCurrentItem() == 0) {
                         finish();
                     } else {
-                        showStepPage(0);
+                        showStepPage(0, null);
                     }
                 }
                 return true;
@@ -86,13 +81,26 @@ public class MainActivity extends AppCompatActivity implements ActionCommands {
         if (mPager == null || mPager.getCurrentItem() == 0) {
             super.onBackPressed();
         } else {
-            showStepPage(0);
+            showStepPage(0, null);
         }
     }
 
     @Override
-    public void showStepPage(int pos) {
+    public void showStepPage(int pos, Bundle args) {
+        Bundle existentArgs = new Bundle();
+        if (existentArgs != null) {
+            existentArgs.clear();
+            if (args != null) {
+                args.getParcelable("selectedPerson");
+                existentArgs.putAll(args);
+            }
+        }
         mPager.setCurrentItem(pos);
+    }
+
+    @Override
+    public void sendDataStepForward(Person person) {
+
     }
 
     @OnPageChange(R.id.pager)

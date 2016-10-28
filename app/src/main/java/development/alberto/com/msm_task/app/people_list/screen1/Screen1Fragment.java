@@ -1,6 +1,8 @@
 package development.alberto.com.msm_task.app.people_list.screen1;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -22,6 +24,7 @@ import development.alberto.com.msm_task.app.MSMApp;
 import development.alberto.com.msm_task.app.adapter.PeopleAdapter;
 import development.alberto.com.msm_task.app.people_list.ActionCommands;
 import development.alberto.com.msm_task.app.people_list.MainActivity;
+import development.alberto.com.msm_task.app.util.ProgressBarUtil;
 import development.alberto.com.msm_task.business.interactor.UseCase;
 import development.alberto.com.msm_task.data.api.Models.Person;
 
@@ -29,7 +32,7 @@ import development.alberto.com.msm_task.data.api.Models.Person;
  * Created by alber on 24/10/2016.
  */
 
-public class Screen1Fragment extends Fragment implements Screen1Contract.View {
+public class Screen1Fragment extends Fragment implements Screen1Contract.View, Screen1Contract.ActionsAdapter {
 
     private Screen1Presenter presenter;
 
@@ -37,9 +40,9 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View {
 
     private ActionCommands mCallback;
 
-    private MainActivity activity;
-
     private Unbinder unbinder;
+
+    ProgressDialog progressDoalog;
 
     @BindView(R.id.list)
     RecyclerView mRecyclerView;
@@ -48,12 +51,15 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View {
 
     private ArrayList <Person> pData;
 
+    private Person selectedPerson;
+
     @Inject
     UseCase getPeopleList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ((MSMApp)getActivity().getApplicationContext()).getApplicationComponent().inject(this);
         getPeopleList =  ((MSMApp) getActivity().getApplicationContext()).getApplicationComponent().getUserListUseCase();
         presenter = new Screen1Presenter(this, getPeopleList);
@@ -63,7 +69,7 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.screen1_fragment, container, false);
+        View view = inflater.inflate(R.layout.screen1_contacts, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -74,7 +80,7 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new PeopleAdapter(pData, R.layout.row_person, getContext());
+        mAdapter = new PeopleAdapter(pData, R.layout.row_person, getContext(), this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -92,7 +98,10 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View {
 
     @Override
     public void showNextPage() {
-
+        Bundle args = new Bundle();
+        args.putParcelable("selectedPerson", this.getSelectedPerson());
+        ((MainActivity)getActivity()).showStepPage(1, args);
+//        ((MainActivity)getActivity()).sendDataStepForward(getSelectedPerson());
     }
 
     @Override
@@ -102,11 +111,21 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View {
 
     @Override
     public void showProgress() {
-
+        ProgressBarUtil.showProgressDialog(this.progressDoalog, getActivity());
     }
 
     @Override
     public void dismissProgress() {
+        progressDoalog.dismiss();
+    }
 
+    @Override
+    public void stepForward(int listPosition) {
+        selectedPerson = pData.get(listPosition);
+        presenter.stepForward(false);
+    }
+
+    public Person getSelectedPerson(){
+        return selectedPerson;
     }
 }

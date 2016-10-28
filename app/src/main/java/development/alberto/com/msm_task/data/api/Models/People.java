@@ -1,6 +1,11 @@
 
 package development.alberto.com.msm_task.data.api.Models;
 
+
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +15,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class People {
+public class People implements Parcelable {
 
     @SerializedName("people")
     @Expose
@@ -34,4 +39,12 @@ public class People {
         this.people = people;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+    }
 }
