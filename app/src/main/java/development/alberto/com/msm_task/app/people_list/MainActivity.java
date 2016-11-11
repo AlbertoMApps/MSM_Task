@@ -1,10 +1,13 @@
 package development.alberto.com.msm_task.app.people_list;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -12,12 +15,9 @@ import butterknife.OnPageChange;
 import butterknife.Unbinder;
 import development.alberto.com.msm_task.R;
 import development.alberto.com.msm_task.app.adapter.ScreenSliderPagerAdapter;
-import development.alberto.com.msm_task.app.people_list.screen1.Screen1Fragment;
-import development.alberto.com.msm_task.app.people_list.screen2.Screen2Fragment;
 import development.alberto.com.msm_task.app.widget.CustomViewPager;
-import development.alberto.com.msm_task.data.api.Models.Person;
 
-public class MainActivity extends AppCompatActivity implements ActionCommands {
+public class MainActivity extends AppCompatActivity implements ActionCommands.View {
 
     @BindView(R.id.pager)
     CustomViewPager mPager;
@@ -25,15 +25,11 @@ public class MainActivity extends AppCompatActivity implements ActionCommands {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    private Screen1Fragment firstScreenFragment;
-
-    private Screen2Fragment secondScreenFragment;
-
     private int currentFragmentPosition;
-
     private ScreenSliderPagerAdapter mPagerAdapter;
-
+    private Bundle person;
     private Unbinder unbinder;
+    private MainActivityPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +43,11 @@ public class MainActivity extends AppCompatActivity implements ActionCommands {
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
-        mPagerAdapter = new ScreenSliderPagerAdapter(getSupportFragmentManager(), firstScreenFragment, secondScreenFragment);
+        //firstScreenFragment = new Screen1Fragment();
+        //secondScreenFragment = new Screen2Fragment();
+        presenter = new MainActivityPresenter();
+        List<Fragment> fragmentList = presenter.fragmentList;
+        mPagerAdapter = new ScreenSliderPagerAdapter(getSupportFragmentManager(), fragmentList);
         mPager.setSwipePageEnabled(false);
         mPager.setAdapter(mPagerAdapter);
         currentFragmentPosition = 0;
@@ -81,61 +81,67 @@ public class MainActivity extends AppCompatActivity implements ActionCommands {
         if (mPager == null || mPager.getCurrentItem() == 0) {
             super.onBackPressed();
         } else {
-            showStepPage(0, null);
+            currentFragmentPosition = 0;
+            showStepPage(currentFragmentPosition, null);
         }
     }
 
     @Override
     public void showStepPage(int pos, Bundle args) {
-        Bundle existentArgs = new Bundle();
-        if (existentArgs != null) {
-            existentArgs.clear();
             if (args != null) {
                 args.getParcelable("selectedPerson");
-                existentArgs.putAll(args);
+                person = args;
+//                secondScreenFragment.getArguments().clear();
+//                secondScreenFragment.setArguments(person);
             }
-        }
+        currentFragmentPosition = pos;
         mPager.setCurrentItem(pos);
     }
 
-    @Override
-    public void sendDataStepForward(Person person) {
+//    public Bundle sendDataStepForward() {
+//        return  person;
+//    }
 
-    }
-
-    @OnPageChange(R.id.pager)
-    public void onFragmentSelected(int position) {
-        if (position != currentFragmentPosition) {
-            switch (position) {
-                case 0:
-                    if (firstScreenFragment != null) {
-                        firstScreenFragment.onPauseFragment();
-                    }
-                    if (secondScreenFragment != null) {
-                        secondScreenFragment.onPauseFragment();
-                    }
-                    if (firstScreenFragment != null) {
-                        firstScreenFragment.onResumeFragment();
-                    }
-                    break;
-                case 1:
-                    if (currentFragmentPosition == 0) {
-                        if (firstScreenFragment != null) {
-                            firstScreenFragment.onPauseFragment();
-                        }
-                    } else {
-                        if (secondScreenFragment != null) {
-                            secondScreenFragment.onPauseFragment();
-                        }
-                    }
-                    if (secondScreenFragment != null) {
-                        secondScreenFragment.onResumeFragment();
-                    }
-                    break;
-            }
-            currentFragmentPosition = position;
-        }
-    }
+//    @OnPageChange(R.id.pager)
+//    public void onFragmentSelected(int position) {
+//        if (position != currentFragmentPosition) {
+//            switch (position) {
+//                case 0:
+//                    if (currentFragmentPosition == 1) {
+//                        if (secondScreenFragment != null) {
+//                            secondScreenFragment.onPauseFragment();
+//                        }
+//                    } else {
+//                        if (firstScreenFragment != null) {
+//                            firstScreenFragment.onResumeFragment();
+//                        } else {
+//                            secondScreenFragment.onPauseFragment();
+//                        }
+//                    }
+//                    if (firstScreenFragment != null) {
+//                        firstScreenFragment.onResumeFragment();
+//                    }
+//                    break;
+//                case 1:
+//                    if (currentFragmentPosition == 0) {
+//                        if (firstScreenFragment != null) {
+//                            firstScreenFragment.onPauseFragment();
+//                        }
+//                    } else {
+//                        if (secondScreenFragment != null) {
+//                            secondScreenFragment.onResumeFragment();
+//                        } else {
+//                            firstScreenFragment.onPauseFragment();
+//                        }
+//                    }
+//                    if (secondScreenFragment != null) {
+//                        secondScreenFragment.onResumeFragment();
+//                    }
+//                    break;
+//            }
+//            currentFragmentPosition = position;
+//        }
+//    }
 
     @Override
     public int getCurrentPosition() {

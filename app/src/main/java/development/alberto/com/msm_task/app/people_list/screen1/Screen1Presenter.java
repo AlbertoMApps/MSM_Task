@@ -52,8 +52,8 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
         getPeopleList.unsubscribe();
     }
 
-    public ArrayList<Person> getPeople() {
-        return (ArrayList<Person>) peopleList;
+    public List<Person> getPeople() {
+        return peopleList;
     }
 
     private final class PeopleListSubscriber extends DefaultSubscriber<People> {
@@ -70,7 +70,9 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
         @Override
         public void onNext(People people) {
             peopleList = people.getPeople();
-            mView.initRecyclerView();
+            mView.updateList(peopleList);
+//            mView.initRecyclerView();
+
         }
     }
 }

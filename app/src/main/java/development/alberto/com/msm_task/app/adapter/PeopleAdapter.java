@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,20 +27,20 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
     private Context context;
     private int mLayout;
-    private ArrayList<Person> mData;
+    private List<Person> persons;
     private int listPosition;
     private Screen1Fragment sc1Fragment;
 
-    public PeopleAdapter(ArrayList<Person> pData, int row_person, Context context) {
+    public PeopleAdapter(List<Person> pData, int row_person, Context context) {
         this.context = context;
         this.mLayout = row_person;
-        this.mData = pData;
+        this.persons = pData;
     }
 
-    public PeopleAdapter(ArrayList<Person> pData, int row_person, Context context, Screen1Fragment screen1Fragment) {
+    public PeopleAdapter(List<Person> pData, int row_person, Context context, Screen1Fragment screen1Fragment) {
         this.context = context;
         this.mLayout = row_person;
-        this.mData = pData;
+        this.persons = pData;
         this.sc1Fragment = screen1Fragment;
 
     }
@@ -53,17 +53,17 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final Person dataPersonAPI = mData.get(position);
+        final Person dataPersonAPI = persons.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               listPosition = holder.getAdapterPosition();
+                listPosition = holder.getAdapterPosition();
                 sc1Fragment.stepForward(listPosition);
             }
         });
         Picasso.with(context)
                 .load(dataPersonAPI.getAvatarImage())
-                .resize(350,350)
+                .resize(350, 350)
                 .into(holder.personImage);
         holder.personName.setText(dataPersonAPI.getFirstName());
         holder.personLastName.setText(dataPersonAPI.getLastName());
@@ -71,7 +71,12 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return persons.size();
+    }
+
+    public void update(List<Person> persons) {
+        this.persons = persons;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

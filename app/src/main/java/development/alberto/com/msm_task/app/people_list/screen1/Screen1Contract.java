@@ -1,5 +1,7 @@
 package development.alberto.com.msm_task.app.people_list.screen1;
 
+import java.util.List;
+
 import development.alberto.com.msm_task.data.api.Models.Person;
 
 /**
@@ -21,6 +23,8 @@ public interface Screen1Contract  {
         void dismissProgress();
 
         void initRecyclerView();
+
+        void updateList(List<Person> peopleList);
     }
 
     interface UserActionsListener {

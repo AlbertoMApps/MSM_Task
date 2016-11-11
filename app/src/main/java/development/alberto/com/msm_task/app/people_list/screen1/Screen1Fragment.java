@@ -2,7 +2,6 @@ package development.alberto.com.msm_task.app.people_list.screen1;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -49,9 +49,13 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
 
     private PeopleAdapter mAdapter;
 
-    private ArrayList <Person> pData;
+    private List<Person> pData;
 
     private Person selectedPerson;
+
+    public static Screen1Fragment newInstance() {
+        return new Screen1Fragment();
+    }
 
     @Inject
     UseCase getPeopleList;
@@ -71,24 +75,33 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.screen1_contacts, container, false);
         unbinder = ButterKnife.bind(this, view);
+        initRecyclerView();
         return view;
     }
 
     public void initRecyclerView(){
 
-        pData = presenter.getPeople();
+//        pData = presenter.getPeople();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        pData = new ArrayList<>();
         mAdapter = new PeopleAdapter(pData, R.layout.row_person, getContext(), this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    @Override
+    public void updateList(List<Person> peopleList) {
+        mAdapter.update(peopleList);
+    }
+
 
     public void onResumeFragment() {
+        onResume();
     }
 
     public void onPauseFragment() {
+        onPause();
     }
 
     @Override

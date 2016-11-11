@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import development.alberto.com.msm_task.R;
+import development.alberto.com.msm_task.app.people_list.MainActivity;
 import development.alberto.com.msm_task.data.api.Models.Person;
 
 /**
@@ -22,6 +25,7 @@ import development.alberto.com.msm_task.data.api.Models.Person;
 public class Screen2Fragment extends Fragment implements Screen2Contract.View {
 
     private Unbinder unbinder;
+    private Screen2Presenter screen2Presenter;
     @BindView(R.id.personImage)
     ImageView personImage;
     @BindView(R.id.personName)
@@ -38,10 +42,25 @@ public class Screen2Fragment extends Fragment implements Screen2Contract.View {
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.person_details, container, false);
         unbinder = ButterKnife.bind(this, view);
+        screen2Presenter = new Screen2Presenter(this);
+        Bundle args = getArguments();
+        if( args!=null ) {
+            Person person = (Person) args
+                    .getParcelable("selectedPerson");
+            setViews(person);
+        }
+//        Bundle person = ((MainActivity)getActivity()).sendDataStepForward();
+//        if(person!=null) {
+//            setViews((Person) person.getParcelable("selectedPerson"));
+//        }
         return view;
     }
 
     public void setViews(Person person){
+        Picasso.with(getContext())
+                .load(person.getAvatarImage())
+                .resize(350,350)
+                .into(personImage);
         personName.setText(person.getFirstName());
         personLastName.setText(person.getLastName());
         role.setText(person.getRole());
@@ -49,9 +68,11 @@ public class Screen2Fragment extends Fragment implements Screen2Contract.View {
     }
 
     public void onPauseFragment() {
+        onPause();
     }
 
     public void onResumeFragment() {
+        onResume();
     }
 
     @Override
