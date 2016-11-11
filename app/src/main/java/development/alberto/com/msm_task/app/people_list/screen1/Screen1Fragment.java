@@ -92,7 +92,8 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
 
     @Override
     public void updateList(List<Person> peopleList) {
-        mAdapter.update(peopleList);
+        pData = peopleList;
+        mAdapter.update(pData);
     }
 
 
@@ -135,7 +136,7 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
     @Override
     public void stepForward(int listPosition) {
         selectedPerson = pData.get(listPosition);
-        presenter.stepForward(false);
+        presenter.stepForward(true);
     }
 
     public Person getSelectedPerson(){

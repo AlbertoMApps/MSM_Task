@@ -2,6 +2,7 @@ package development.alberto.com.msm_task.app.people_list;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements ActionCommands.Vi
         //firstScreenFragment = new Screen1Fragment();
         //secondScreenFragment = new Screen2Fragment();
         presenter = new MainActivityPresenter();
-        List<Fragment> fragmentList = presenter.fragmentList;
+        presenter.onCreate();
+        List<Fragment> fragmentList = presenter.getFragmentList();
         mPagerAdapter = new ScreenSliderPagerAdapter(getSupportFragmentManager(), fragmentList);
         mPager.setSwipePageEnabled(false);
         mPager.setAdapter(mPagerAdapter);
@@ -96,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements ActionCommands.Vi
             }
         currentFragmentPosition = pos;
         mPager.setCurrentItem(pos);
+
+
     }
 
 //    public Bundle sendDataStepForward() {
