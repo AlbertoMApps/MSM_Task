@@ -12,19 +12,18 @@ import development.alberto.com.msm_task.app.util.Presenter;
 /**
  * Created by alber on 11/11/2016.
  */
-public class MainActivityPresenter extends Presenter implements ActionCommands.UserActionsListener {
+public class MainActivityPresenter extends Presenter {
 
-    public List<Fragment> fragmentList;
+    private List<Fragment> fragmentList;
 
     public MainActivityPresenter(){
-        fragmentList = new ArrayList<>(2);
-        fragmentList.add(Screen1Fragment.newInstance());
-        fragmentList.add(new Screen2Fragment());
     }
 
     @Override
     protected void onCreate() {
-
+        fragmentList = new ArrayList<>(2);
+        fragmentList.add(Screen1Fragment.newInstance());
+        fragmentList.add(Screen2Fragment.newInstance());
     }
 
     @Override

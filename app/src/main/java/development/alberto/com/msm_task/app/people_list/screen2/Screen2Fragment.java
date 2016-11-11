@@ -37,6 +37,10 @@ public class Screen2Fragment extends Fragment implements Screen2Contract.View {
     @BindView(R.id.dob)
     TextView dob;
 
+    public static Screen2Fragment newInstance () {
+        return new Screen2Fragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
