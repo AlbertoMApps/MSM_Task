@@ -114,7 +114,7 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
     public void showNextPage() {
         Bundle args = new Bundle();
         args.putParcelable("selectedPerson", this.getSelectedPerson());
-        ((MainActivity)getActivity()).showStepPage(1, args);
+        ((MainActivity)getActivity()).showStepPage(1, getSelectedPerson());
 //        ((MainActivity)getActivity()).sendDataStepForward(getSelectedPerson());
     }
 
