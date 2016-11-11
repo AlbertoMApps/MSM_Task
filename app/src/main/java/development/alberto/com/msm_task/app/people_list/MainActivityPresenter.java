@@ -41,4 +41,9 @@ public class MainActivityPresenter extends Presenter {
 
     }
 
+    public List<Fragment> getFragmentList() {
+        return fragmentList;
+    }
+
+
 }

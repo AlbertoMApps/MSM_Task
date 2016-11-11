@@ -42,17 +42,23 @@ public class Screen2Fragment extends Fragment implements Screen2Contract.View {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.person_details, container, false);
         unbinder = ButterKnife.bind(this, view);
         screen2Presenter = new Screen2Presenter(this);
-        Bundle args = getArguments();
-        if( args!=null ) {
-            Person person = (Person) args
-                    .getParcelable("selectedPerson");
-            setViews(person);
-        }
+//        Bundle args = getArguments();
+//        if( args!=null ) {
+//            Person person = (Person) args
+//                    .getParcelable("selectedPerson");
+//            setViews(person);
+//        }
 //        Bundle person = ((MainActivity)getActivity()).sendDataStepForward();
 //        if(person!=null) {
 //            setViews((Person) person.getParcelable("selectedPerson"));
