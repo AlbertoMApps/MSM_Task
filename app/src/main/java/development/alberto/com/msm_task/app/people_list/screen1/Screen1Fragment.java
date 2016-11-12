@@ -80,12 +80,11 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
     }
 
     public void initRecyclerView(){
-
+        pData = new ArrayList<>(2);
 //        pData = presenter.getPeople();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        pData = new ArrayList<>();
         mAdapter = new PeopleAdapter(pData, R.layout.row_person, getContext(), this);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -93,6 +92,7 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
     @Override
     public void updateList(List<Person> peopleList) {
         mAdapter.update(peopleList);
+        pData = peopleList;
     }
 
 

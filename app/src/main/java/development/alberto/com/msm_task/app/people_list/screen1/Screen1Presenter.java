@@ -72,7 +72,6 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
             peopleList = people.getPeople();
             mView.updateList(peopleList);
 //            mView.initRecyclerView();
-
         }
     }
 }
