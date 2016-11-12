@@ -37,18 +37,28 @@ public class Screen2Fragment extends Fragment implements Screen2Contract.View {
     @BindView(R.id.dob)
     TextView dob;
 
+    public static Screen2Fragment newInstance () {
+        return new Screen2Fragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.person_details, container, false);
         unbinder = ButterKnife.bind(this, view);
         screen2Presenter = new Screen2Presenter(this);
-        Bundle args = getArguments();
-        if( args!=null ) {
-            Person person = (Person) args
-                    .getParcelable("selectedPerson");
-            setViews(person);
-        }
+//        Bundle args = getArguments();
+//        if( args!=null ) {
+//            Person person = (Person) args
+//                    .getParcelable("selectedPerson");
+//            setViews(person);
+//        }
 //        Bundle person = ((MainActivity)getActivity()).sendDataStepForward();
 //        if(person!=null) {
 //            setViews((Person) person.getParcelable("selectedPerson"));
@@ -59,7 +69,7 @@ public class Screen2Fragment extends Fragment implements Screen2Contract.View {
     public void setViews(Person person){
         Picasso.with(getContext())
                 .load(person.getAvatarImage())
-                .resize(350,350)
+                .resize(200,200)
                 .into(personImage);
         personName.setText(person.getFirstName());
         personLastName.setText(person.getLastName());

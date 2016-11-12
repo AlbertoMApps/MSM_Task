@@ -80,19 +80,20 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
     }
 
     public void initRecyclerView(){
-        pData = new ArrayList<>(2);
+
 //        pData = presenter.getPeople();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        pData = new ArrayList<>();
         mAdapter = new PeopleAdapter(pData, R.layout.row_person, getContext(), this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public void updateList(List<Person> peopleList) {
-        mAdapter.update(peopleList);
         pData = peopleList;
+        mAdapter.update(pData);
     }
 
 
@@ -113,7 +114,7 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
     public void showNextPage() {
         Bundle args = new Bundle();
         args.putParcelable("selectedPerson", this.getSelectedPerson());
-        ((MainActivity)getActivity()).showStepPage(1, args);
+        ((MainActivity)getActivity()).showStepPage(1, getSelectedPerson());
 //        ((MainActivity)getActivity()).sendDataStepForward(getSelectedPerson());
     }
 
@@ -135,7 +136,7 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
     @Override
     public void stepForward(int listPosition) {
         selectedPerson = pData.get(listPosition);
-        presenter.stepForward(false);
+        presenter.stepForward(true);
     }
 
     public Person getSelectedPerson(){

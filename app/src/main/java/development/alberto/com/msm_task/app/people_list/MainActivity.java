@@ -11,11 +11,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnPageChange;
 import butterknife.Unbinder;
 import development.alberto.com.msm_task.R;
 import development.alberto.com.msm_task.app.adapter.ScreenSliderPagerAdapter;
+import development.alberto.com.msm_task.app.people_list.screen2.Screen2Fragment;
 import development.alberto.com.msm_task.app.widget.CustomViewPager;
+import development.alberto.com.msm_task.data.api.Models.Person;
 
 public class MainActivity extends AppCompatActivity implements ActionCommands.View {
 
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements ActionCommands.Vi
         //firstScreenFragment = new Screen1Fragment();
         //secondScreenFragment = new Screen2Fragment();
         presenter = new MainActivityPresenter();
-        List<Fragment> fragmentList = presenter.fragmentList;
-        mPagerAdapter = new ScreenSliderPagerAdapter(getSupportFragmentManager(), fragmentList);
+        presenter.onCreate();
+        mPagerAdapter = new ScreenSliderPagerAdapter(getSupportFragmentManager(), presenter.getFragmentList());
         mPager.setSwipePageEnabled(false);
         mPager.setAdapter(mPagerAdapter);
         currentFragmentPosition = 0;
@@ -81,21 +82,27 @@ public class MainActivity extends AppCompatActivity implements ActionCommands.Vi
         if (mPager == null || mPager.getCurrentItem() == 0) {
             super.onBackPressed();
         } else {
-            currentFragmentPosition = 0;
             showStepPage(currentFragmentPosition, null);
+            currentFragmentPosition = 0;
         }
     }
 
     @Override
-    public void showStepPage(int pos, Bundle args) {
-            if (args != null) {
-                args.getParcelable("selectedPerson");
-                person = args;
-//                secondScreenFragment.getArguments().clear();
-//                secondScreenFragment.setArguments(person);
-            }
+    public void showStepPage(int pos, Person args) {
+//            if (args != null) {
+//                args.getParcelable("selectedPerson");
+//                person = args;
         currentFragmentPosition = pos;
+        if (currentFragmentPosition == 1
+                ) {
+            final List<Fragment> fragmentList = presenter.getFragmentList();
+            final Screen2Fragment secondScreenFragment = (Screen2Fragment) fragmentList.get(pos);
+            secondScreenFragment.setViews(args);
+//            }
+        }
         mPager.setCurrentItem(pos);
+
+
     }
 
 //    public Bundle sendDataStepForward() {

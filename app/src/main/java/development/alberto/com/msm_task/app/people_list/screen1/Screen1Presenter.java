@@ -27,7 +27,7 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
 
     @Override
     public void stepForward(boolean lastStep ) {
-        if (!lastStep) {
+        if (lastStep) {
             mView.showNextPage();
         }
     }
