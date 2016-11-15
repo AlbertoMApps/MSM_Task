@@ -1,8 +1,6 @@
 package development.alberto.com.msm_task.app.people_list;
 
-import android.os.Bundle;
-
-import development.alberto.com.msm_task.data.api.Models.Person;
+import development.alberto.com.msm_task.data.api.models.api_model.Person;
 
 /**
  * Created by AlbertoMedrano on 21/07/16.

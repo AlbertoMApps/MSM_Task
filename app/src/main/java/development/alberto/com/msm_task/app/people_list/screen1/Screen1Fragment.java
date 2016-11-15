@@ -1,6 +1,7 @@
 package development.alberto.com.msm_task.app.people_list.screen1;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,7 +27,7 @@ import development.alberto.com.msm_task.app.people_list.ActionCommands;
 import development.alberto.com.msm_task.app.people_list.MainActivity;
 import development.alberto.com.msm_task.app.util.ProgressBarUtil;
 import development.alberto.com.msm_task.business.interactor.UseCase;
-import development.alberto.com.msm_task.data.api.Models.Person;
+import development.alberto.com.msm_task.data.api.models.api_model.Person;
 
 /**
  * Created by alber on 24/10/2016.
@@ -114,7 +115,6 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
         Bundle args = new Bundle();
         args.putParcelable("selectedPerson", this.getSelectedPerson());
         ((MainActivity)getActivity()).showStepPage(1, getSelectedPerson());
-//        ((MainActivity)getActivity()).sendDataStepForward(getSelectedPerson());
     }
 
     @Override
@@ -140,5 +140,10 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
 
     public Person getSelectedPerson(){
         return selectedPerson;
+    }
+
+    @Override
+    public Context getContextFragment1() {
+        return this.getContext();
     }
 }

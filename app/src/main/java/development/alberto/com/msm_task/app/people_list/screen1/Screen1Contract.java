@@ -1,8 +1,10 @@
 package development.alberto.com.msm_task.app.people_list.screen1;
 
+import android.content.Context;
+
 import java.util.List;
 
-import development.alberto.com.msm_task.data.api.Models.Person;
+import development.alberto.com.msm_task.data.api.models.api_model.Person;
 
 /**
  * Created by alber on 24/10/2016.
@@ -25,6 +27,8 @@ public interface Screen1Contract  {
         void initRecyclerView();
 
         void updateList(List<Person> peopleList);
+
+        Context getContextFragment1();
     }
 
     interface UserActionsListener {

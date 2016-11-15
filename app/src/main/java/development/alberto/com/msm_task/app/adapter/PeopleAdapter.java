@@ -10,14 +10,13 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import development.alberto.com.msm_task.R;
 import development.alberto.com.msm_task.app.people_list.screen1.Screen1Fragment;
-import development.alberto.com.msm_task.data.api.Models.Person;
+import development.alberto.com.msm_task.data.api.models.api_model.Person;
 
 /**
  * Created by alber on 24/10/2016.

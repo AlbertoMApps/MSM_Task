@@ -1,7 +1,7 @@
 package development.alberto.com.msm_task.data.api;
 
-import development.alberto.com.msm_task.data.api.Constant.Constant;
-import development.alberto.com.msm_task.data.api.Models.People;
+import development.alberto.com.msm_task.data.api.constant.Constant;
+import development.alberto.com.msm_task.data.api.models.api_model.People;
 import retrofit2.http.GET;
 
 /**

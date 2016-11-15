@@ -15,8 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import development.alberto.com.msm_task.R;
-import development.alberto.com.msm_task.app.people_list.MainActivity;
-import development.alberto.com.msm_task.data.api.Models.Person;
+import development.alberto.com.msm_task.data.api.models.api_model.Person;
 
 /**
  * Created by alber on 24/10/2016.

@@ -16,7 +16,7 @@ import development.alberto.com.msm_task.R;
 import development.alberto.com.msm_task.app.adapter.ScreenSliderPagerAdapter;
 import development.alberto.com.msm_task.app.people_list.screen2.Screen2Fragment;
 import development.alberto.com.msm_task.app.widget.CustomViewPager;
-import development.alberto.com.msm_task.data.api.Models.Person;
+import development.alberto.com.msm_task.data.api.models.api_model.Person;
 
 public class MainActivity extends AppCompatActivity implements ActionCommands.View {
 

@@ -1,34 +1,24 @@
+package development.alberto.com.msm_task.data.api.models.data_model;
 
-package development.alberto.com.msm_task.data.api.Models;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+/**
+ * Created by alber on 15/11/2016.
+ */
 
-import javax.annotation.Generated;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+public class PersonTable extends RealmObject {
 
-@Generated("org.jsonschema2pojo")
-public class Person implements Parcelable {
-
-    @SerializedName("firstName")
-    @Expose
+    @PrimaryKey
+    private int id;
     private String firstName;
-    @SerializedName("lastName")
-    @Expose
     private String lastName;
-    @SerializedName("dateOfBirth")
-    @Expose
     private String dateOfBirth;
-    @SerializedName("avatarImage")
-    @Expose
     private String avatarImage;
-    @SerializedName("role")
-    @Expose
     private String role;
 
     /**
-     * 
+     *
      * @return
      *     The firstName
      */
@@ -37,7 +27,7 @@ public class Person implements Parcelable {
     }
 
     /**
-     * 
+     *
      * @param firstName
      *     The firstName
      */
@@ -46,7 +36,7 @@ public class Person implements Parcelable {
     }
 
     /**
-     * 
+     *
      * @return
      *     The lastName
      */
@@ -55,7 +45,7 @@ public class Person implements Parcelable {
     }
 
     /**
-     * 
+     *
      * @param lastName
      *     The lastName
      */
@@ -64,7 +54,7 @@ public class Person implements Parcelable {
     }
 
     /**
-     * 
+     *
      * @return
      *     The dateOfBirth
      */
@@ -73,7 +63,7 @@ public class Person implements Parcelable {
     }
 
     /**
-     * 
+     *
      * @param dateOfBirth
      *     The dateOfBirth
      */
@@ -82,7 +72,7 @@ public class Person implements Parcelable {
     }
 
     /**
-     * 
+     *
      * @return
      *     The avatarImage
      */
@@ -91,7 +81,7 @@ public class Person implements Parcelable {
     }
 
     /**
-     * 
+     *
      * @param avatarImage
      *     The avatarImage
      */
@@ -100,7 +90,7 @@ public class Person implements Parcelable {
     }
 
     /**
-     * 
+     *
      * @return
      *     The role
      */
@@ -109,7 +99,7 @@ public class Person implements Parcelable {
     }
 
     /**
-     * 
+     *
      * @param role
      *     The role
      */
@@ -117,38 +107,20 @@ public class Person implements Parcelable {
         this.role = role;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    /**
+     *
+     * @return
+     */
+    public int getId() {
+        return id;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(firstName);
-        dest.writeString(lastName);
-        dest.writeString(dateOfBirth);
-        dest.writeString(role);
-        dest.writeString(avatarImage);
+    /**
+     *
+     * @param id
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
-    private Person(Parcel in){
-        this.firstName = in.readString();
-        this.lastName = in.readString();
-        this.dateOfBirth = in.readString();
-        this.role = in.readString();
-        this.avatarImage = in.readString();
-    }
-
-    public static final Parcelable.Creator<Person> CREATOR = new Parcelable.Creator<Person>() {
-
-        @Override
-        public Person createFromParcel(Parcel source) {
-            return new Person(source);
-        }
-
-        @Override
-        public Person[] newArray(int size) {
-            return new Person[size];
-        }
-    };
 }

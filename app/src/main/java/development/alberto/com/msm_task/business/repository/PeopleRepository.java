@@ -1,6 +1,6 @@
 package development.alberto.com.msm_task.business.repository;
 
-import development.alberto.com.msm_task.data.api.Models.People;
+import development.alberto.com.msm_task.data.api.models.api_model.People;
 import rx.Observable;
 
 /**

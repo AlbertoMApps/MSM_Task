@@ -1,5 +1,5 @@
 
-package development.alberto.com.msm_task.data.api.Models;
+package development.alberto.com.msm_task.data.api.models.api_model;
 
 
 

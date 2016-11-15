@@ -1,12 +1,15 @@
 package development.alberto.com.msm_task.app.people_list.screen1;
 
+import android.util.Log;
+
 import java.util.List;
 
+import development.alberto.com.msm_task.app.net.ConnectionManager;
 import development.alberto.com.msm_task.app.util.Presenter;
 import development.alberto.com.msm_task.business.interactor.DefaultSubscriber;
 import development.alberto.com.msm_task.business.interactor.UseCase;
-import development.alberto.com.msm_task.data.api.Models.People;
-import development.alberto.com.msm_task.data.api.Models.Person;
+import development.alberto.com.msm_task.data.api.models.api_model.People;
+import development.alberto.com.msm_task.data.api.models.api_model.Person;
 
 /**
  * Created by alber on 24/10/2016.
@@ -14,14 +17,17 @@ import development.alberto.com.msm_task.data.api.Models.Person;
 
 public class Screen1Presenter extends Presenter implements Screen1Contract.UserActionsListener {
 
+    private static final String TAG = "Error TAG";
     private Screen1Contract.View mView;
     private  List<Person> peopleList;
     private UseCase getPeopleList;
+    private ConnectionManager connectionManager;
 
     public Screen1Presenter( Screen1Contract.View view, UseCase getPeopleList) {
         if (view == null) throw new NullPointerException();
         mView = view;
         this.getPeopleList = getPeopleList;
+        connectionManager = new ConnectionManager(mView.getContextFragment1());
     }
 
     @Override
@@ -63,13 +69,19 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
 
         @Override
         public void onError(Throwable e) {
-            mView.showErrorSnackBar("");
+            mView.showErrorSnackBar(e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
 
         @Override
         public void onNext(People people) {
             peopleList = people.getPeople();
             mView.updateList(peopleList);
+            if ( connectionManager.isNetworkAvailable() ) {
+                //We have connection so, we can download and save into the DB
+            } else {
+                //Otherwise we will send the list of persons from the database
+            }
         }
     }
 }

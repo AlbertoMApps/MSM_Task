@@ -1,6 +1,6 @@
 package development.alberto.com.msm_task.data.api;
 
-import development.alberto.com.msm_task.data.api.Constant.Constant;
+import development.alberto.com.msm_task.data.api.constant.Constant;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;

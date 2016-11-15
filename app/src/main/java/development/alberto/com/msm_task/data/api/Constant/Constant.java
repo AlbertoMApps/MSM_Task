@@ -1,4 +1,4 @@
-package development.alberto.com.msm_task.data.api.Constant;
+package development.alberto.com.msm_task.data.api.constant;
 
 /**
  * Created by alber on 23/10/2016.
