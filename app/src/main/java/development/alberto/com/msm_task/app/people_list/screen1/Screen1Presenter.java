@@ -1,6 +1,5 @@
 package development.alberto.com.msm_task.app.people_list.screen1;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import development.alberto.com.msm_task.app.util.Presenter;
@@ -71,7 +70,6 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
         public void onNext(People people) {
             peopleList = people.getPeople();
             mView.updateList(peopleList);
-//            mView.initRecyclerView();
         }
     }
 }

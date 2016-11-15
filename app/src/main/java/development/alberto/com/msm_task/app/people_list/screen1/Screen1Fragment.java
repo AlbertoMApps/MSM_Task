@@ -81,7 +81,6 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
 
     public void initRecyclerView(){
 
-//        pData = presenter.getPeople();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
