@@ -35,6 +35,7 @@ import development.alberto.com.msm_task.data.api.models.api_model.Person;
 
 public class Screen1Fragment extends Fragment implements Screen1Contract.View, Screen1Contract.ActionsAdapter {
 
+    private static final String TAG = "Screen1 TAG";
     private Screen1Presenter presenter;
 
     private Screen1Contract.UserActionsListener actionsListener;

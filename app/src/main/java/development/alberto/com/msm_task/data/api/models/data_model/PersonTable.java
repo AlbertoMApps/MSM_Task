@@ -1,7 +1,6 @@
 package development.alberto.com.msm_task.data.api.models.data_model;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by alber on 15/11/2016.
@@ -9,8 +8,6 @@ import io.realm.annotations.PrimaryKey;
 
 public class PersonTable extends RealmObject {
 
-    @PrimaryKey
-    private int id;
     private String firstName;
     private String lastName;
     private String dateOfBirth;
@@ -105,22 +102,6 @@ public class PersonTable extends RealmObject {
      */
     public void setRole(String role) {
         this.role = role;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public void setId(int id) {
-        this.id = id;
     }
 
 }

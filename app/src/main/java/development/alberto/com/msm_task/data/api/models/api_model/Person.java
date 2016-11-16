@@ -27,6 +27,9 @@ public class Person implements Parcelable {
     @Expose
     private String role;
 
+    public Person() {
+    }
+
     /**
      * 
      * @return
@@ -131,7 +134,7 @@ public class Person implements Parcelable {
         dest.writeString(avatarImage);
     }
 
-    private Person(Parcel in){
+    public Person(Parcel in){
         this.firstName = in.readString();
         this.lastName = in.readString();
         this.dateOfBirth = in.readString();

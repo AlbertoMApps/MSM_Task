@@ -8,8 +8,11 @@ import development.alberto.com.msm_task.app.net.ConnectionManager;
 import development.alberto.com.msm_task.app.util.Presenter;
 import development.alberto.com.msm_task.business.interactor.DefaultSubscriber;
 import development.alberto.com.msm_task.business.interactor.UseCase;
+import development.alberto.com.msm_task.data.api.models.RealmDAO;
 import development.alberto.com.msm_task.data.api.models.api_model.People;
 import development.alberto.com.msm_task.data.api.models.api_model.Person;
+import development.alberto.com.msm_task.data.api.models.data_model.PersonTable;
+import development.alberto.com.msm_task.data.api.models.mapper.RealmMapper;
 
 /**
  * Created by alber on 24/10/2016.
@@ -22,6 +25,7 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
     private  List<Person> peopleList;
     private UseCase getPeopleList;
     private ConnectionManager connectionManager;
+    private  RealmDAO realmDAO;
 
     public Screen1Presenter( Screen1Contract.View view, UseCase getPeopleList) {
         if (view == null) throw new NullPointerException();
@@ -79,8 +83,20 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
             mView.updateList(peopleList);
             if ( connectionManager.isNetworkAvailable() ) {
                 //We have connection so, we can download and save into the DB
+                //Check realmDao
+                realmDAO = new RealmDAO();
+                realmDAO.initData();
+                for (Person person : peopleList) {
+                    realmDAO.addPersonData(person.getFirstName(), person.getLastName(),
+                            person.getRole(), person.getDateOfBirth(), person.getAvatarImage());
+                }
+
             } else {
                 //Otherwise we will send the list of persons from the database
+                peopleList = RealmMapper.transform(realmDAO.getAllFromPersonTableData());
+                for (PersonTable personTable : realmDAO.getAllFromPersonTableData()) {
+                    Log.i(TAG, personTable.getFirstName());
+                }
             }
         }
     }
