@@ -13,6 +13,7 @@ import development.alberto.com.msm_task.data.api.models.api_model.People;
 import development.alberto.com.msm_task.data.api.models.api_model.Person;
 import development.alberto.com.msm_task.data.api.models.data_model.PersonTable;
 import development.alberto.com.msm_task.data.api.models.mapper.RealmMapper;
+import io.realm.RealmResults;
 
 /**
  * Created by alber on 24/10/2016.
@@ -32,6 +33,18 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
         mView = view;
         this.getPeopleList = getPeopleList;
         connectionManager = new ConnectionManager(mView.getContextFragment1());
+        //Check realmDAO
+        realmDAO = new RealmDAO();
+//        realmDAO.initData();
+        if ( !connectionManager.isNetworkAvailable() ) {
+            RealmResults<PersonTable> realmResults = realmDAO.getAllFromPersonTableData();
+            if(realmResults!=null) {
+                peopleList = RealmMapper.transform(realmResults);
+//                for (PersonTable personTable : realmDAO.getAllFromPersonTableData()) {
+//                    Log.i(TAG, personTable.getFirstName());
+//                }
+            }
+        }
     }
 
     @Override
@@ -83,21 +96,12 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
             mView.updateList(peopleList);
             if ( connectionManager.isNetworkAvailable() ) {
                 //We have connection so, we can download and save into the DB
-                //Check realmDao
-                realmDAO = new RealmDAO();
-                realmDAO.initData();
                 for (Person person : peopleList) {
                     realmDAO.addPersonData(person.getFirstName(), person.getLastName(),
                             person.getRole(), person.getDateOfBirth(), person.getAvatarImage());
                 }
-
-            } else {
-                //Otherwise we will send the list of persons from the database
-                peopleList = RealmMapper.transform(realmDAO.getAllFromPersonTableData());
-                for (PersonTable personTable : realmDAO.getAllFromPersonTableData()) {
-                    Log.i(TAG, personTable.getFirstName());
-                }
             }
+            //TODO insert into in case realmDAO size of the list is > than people.getPeopleList()
         }
     }
 }

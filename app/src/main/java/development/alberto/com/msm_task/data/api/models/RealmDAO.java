@@ -19,12 +19,13 @@ public class RealmDAO {
     public RealmDAO(){
         // Get a Realm instance for this thread
         realm = Realm.getDefaultInstance();
+        person = new PersonTable();
     }
 
     public void initData(){
-        realm.beginTransaction();
-        person = realm.createObject(PersonTable.class); // Create managed objects directly
-        realm.commitTransaction();
+//        realm.beginTransaction();
+//        person = realm.createObject(PersonTable.class, person); // Create managed objects directly
+//        realm.commitTransaction();
     }
 
     public  void addPersonData(final String firstName, final String lastName,
@@ -32,6 +33,7 @@ public class RealmDAO {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
+                person = realm.createObject(PersonTable.class);
                 person.setFirstName(firstName);
                 person.setLastName(lastName);
                 person.setRole(role);
@@ -50,9 +52,9 @@ public class RealmDAO {
         return result;
     }
 
-    private void clearDB() {
+    public void clearDB() {
         realm.beginTransaction();
-        realm.deleteAll();
+        realm.delete(PersonTable.class);
         realm.commitTransaction();
     }
 
