@@ -69,7 +69,6 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
         ((MSMApp)getActivity().getApplicationContext()).getApplicationComponent().inject(this);
         getPeopleList =  ((MSMApp) getActivity().getApplicationContext()).getApplicationComponent().getUserListUseCase();
         presenter = new Screen1Presenter(this, getPeopleList);
-        presenter.onCreate();
     }
 
     @Override
@@ -78,6 +77,7 @@ public class Screen1Fragment extends Fragment implements Screen1Contract.View, S
         View view = inflater.inflate(R.layout.screen1_contacts, container, false);
         unbinder = ButterKnife.bind(this, view);
         initRecyclerView();
+        presenter.onCreate();
         return view;
     }
 

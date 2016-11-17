@@ -35,16 +35,6 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
         connectionManager = new ConnectionManager(mView.getContextFragment1());
         //Check realmDAO
         realmDAO = new RealmDAO();
-//        realmDAO.initData();
-        if ( !connectionManager.isNetworkAvailable() ) {
-            RealmResults<PersonTable> realmResults = realmDAO.getAllFromPersonTableData();
-            if(realmResults!=null) {
-                peopleList = RealmMapper.transform(realmResults);
-//                for (PersonTable personTable : realmDAO.getAllFromPersonTableData()) {
-//                    Log.i(TAG, personTable.getFirstName());
-//                }
-            }
-        }
     }
 
     @Override
@@ -57,6 +47,17 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
     @Override
     protected void onCreate() {
         getPeopleList.execute(new PeopleListSubscriber());
+
+        if ( !connectionManager.isNetworkAvailable() ) {
+            RealmResults<PersonTable> realmResults = realmDAO.getAllFromPersonTableData();
+            if(realmResults!=null) {
+                peopleList = RealmMapper.transform(realmResults);
+                mView.updateList(peopleList);
+//                for (PersonTable personTable : realmDAO.getAllFromPersonTableData()) {
+//                    Log.i(TAG, personTable.getFirstName());
+//                }
+            }
+        }
     }
 
     @Override
@@ -94,7 +95,8 @@ public class Screen1Presenter extends Presenter implements Screen1Contract.UserA
         public void onNext(People people) {
             peopleList = people.getPeople();
             mView.updateList(peopleList);
-            if ( connectionManager.isNetworkAvailable() ) {
+            //We need to check in case the list and the realmList are the same, to not overload again the list all the time..
+            if ( connectionManager.isNetworkAvailable()  && realmDAO.getAllFromPersonTableData().size() < people.getPeople().size() ) {
                 //We have connection so, we can download and save into the DB
                 for (Person person : peopleList) {
                     realmDAO.addPersonData(person.getFirstName(), person.getLastName(),
